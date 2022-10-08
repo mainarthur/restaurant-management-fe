@@ -1,28 +1,39 @@
 import styled from "@emotion/styled";
 import { Button, Card, Space, Typography } from "antd";
 
+import { useEvent } from "../../hooks/useEvent.js";
 import { Restaurant as RestaurantType } from "../../redux/types/Restaurant.js";
 
 type Handler = (id: number) => void;
 type Props = RestaurantType & { onUpdate: Handler; onDelete: Handler };
 
-export const Restaurant = ({ id, name, address, email, phone }: Props) => (
-  <RestaurantContainer>
-    <ContactContainer>
-      <span>
-        <Title>{name}</Title>
-        <Address>{address}</Address>
-      </span>
-      <DeleteButton>
-        <MinusOutlined />
-      </DeleteButton>
-    </ContactContainer>
-    <ContactContainer>
-      <Email>{email}</Email>
-      <Phone>{phone}</Phone>
-    </ContactContainer>
-  </RestaurantContainer>
-);
+export const Restaurant = ({
+  id,
+  name,
+  address,
+  email,
+  phone,
+  onDelete,
+}: Props) => {
+  const handleDelete = useEvent(() => onDelete(id));
+  return (
+    <RestaurantContainer>
+      <ContactContainer>
+        <span>
+          <Title>{name}</Title>
+          <Address>{address}</Address>
+        </span>
+        <DeleteButton onClick={handleDelete}>
+          <MinusOutlined />
+        </DeleteButton>
+      </ContactContainer>
+      <ContactContainer>
+        <Email>{email}</Email>
+        <Phone>{phone}</Phone>
+      </ContactContainer>
+    </RestaurantContainer>
+  );
+};
 
 const Title = styled(Typography)`
   font-size: 22pt;

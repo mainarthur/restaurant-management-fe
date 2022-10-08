@@ -28,7 +28,7 @@ export const RestaurantsList = () => {
   const restaurants = useSelector((state: RootState) => state.restaurants);
   const pagination = useSelector((state: RootState) => state.pagination);
   const dispatch = useDispatch();
-
+  console.log({ pagination });
   const handleDeleteRestaurant = useEvent(async (id: number) => {
     await createAsyncAction(dispatch, deleteRestaurantActionAsync({ id }));
     await createAsyncAction(
