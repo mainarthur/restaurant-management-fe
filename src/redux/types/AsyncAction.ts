@@ -1,7 +1,8 @@
-import Action from './Action'
+import Action from "./Action";
 
-interface AsyncAction<ResultType, PayloadType = {}> extends Action<PayloadType> {
-  next(err?: any, result?: ResultType): void
+interface AsyncAction<ResultType, PayloadType extends {} = {}>
+  extends Action<PayloadType> {
+  next(err?: any, result?: ResultType): void;
 }
 
-export default AsyncAction
+export default AsyncAction;

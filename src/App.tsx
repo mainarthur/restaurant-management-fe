@@ -1,34 +1,31 @@
-import { PlusOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import { Button, Card, Pagination, Space, Typography } from "antd";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+import { RestaurantsList } from "./components/RestaurantsList/RestaurantsList.js";
 import { SearchBar } from "./components/SearchBar/SearchBar.js";
+import { DEFAULT_PAGE_SIZE } from "./constants.js";
+import { searchActionAsync } from "./redux/actions/restaurants.js";
+import { createAsyncAction } from "./redux/helpers.js";
 
 const App = () => {
-  // const dispatch = useDi;
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    createAsyncAction(
+      dispatch,
+      searchActionAsync({
+        searchTerm: "",
+        page: 0,
+        pageSize: DEFAULT_PAGE_SIZE,
+      }),
+    );
+  }, []);
 
   return (
     <AppContainer>
       <SearchBar />
-      <Space>
-        <Card>
-          <Typography>McDonalds</Typography>
-          <Typography>
-            5 Hermitage Rd, St John's, Woking GU21 8TE, UK
-          </Typography>
-          <Typography>hi@mcdonalds.com</Typography>
-          <Typography>(494) 927-2152</Typography>
-        </Card>
-      </Space>
-      <Space>
-        <Button type="primary">
-          <PlusOutlined />
-        </Button>
-        <Pagination />
-      </Space>
+      <RestaurantsList />
     </AppContainer>
   );
 };

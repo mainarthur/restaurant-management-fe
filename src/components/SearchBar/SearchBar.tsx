@@ -4,8 +4,10 @@ import { Button, Input, Space } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
+import { DEFAULT_PAGE_SIZE } from "../../constants";
 import { useEvent } from "../../hooks/useEvent";
-import { searchAction } from "../../redux/actions/search.js";
+import { searchActionAsync } from "../../redux/actions/restaurants";
+import { createAsyncAction } from "../../redux/helpers.js";
 
 export const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +19,10 @@ export const SearchBar = () => {
     });
 
   const handleSearch = useEvent(() => {
-    dispatch(searchAction({ searchTerm }));
+    createAsyncAction(
+      dispatch,
+      searchActionAsync({ searchTerm, page: 0, pageSize: DEFAULT_PAGE_SIZE }),
+    );
   });
 
   return (
