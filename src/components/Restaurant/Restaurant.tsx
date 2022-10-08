@@ -14,10 +14,28 @@ export const Restaurant = ({
   email,
   phone,
   onDelete,
+  onUpdate,
 }: Props) => {
-  const handleDelete = useEvent(() => onDelete(id));
+  const handleDelete: React.MouseEventHandler<HTMLElement> = useEvent(
+    (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      onDelete(id);
+    },
+  );
+
+  const handleUpdate: React.MouseEventHandler<HTMLElement> = useEvent(
+    (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      onUpdate(id);
+    },
+  );
+
   return (
-    <RestaurantContainer>
+    <RestaurantContainer onClick={handleUpdate}>
       <ContactContainer>
         <span>
           <Title>{name}</Title>

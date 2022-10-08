@@ -14,6 +14,7 @@ import { paginationSelector } from "../../redux/selectors/pagination.js";
 import { restaurantsSelector } from "../../redux/selectors/restaurants.js";
 import { CreateModal } from "../CreateModal/CreateModal.js";
 import { Restaurant } from "../Restaurant/Restaurant.js";
+import { UpdateModal } from "../UpdateModal/UpdateModal.js";
 
 export const RestaurantsList = () => {
   const [updatingRestaurantId, setUpdatingRestaurantId] = useState<
@@ -57,6 +58,9 @@ export const RestaurantsList = () => {
 
   const handleOpenCreateModal = useEvent(() => setIsCreateModalOpen(true));
   const handleCloseCreateModal = useEvent(() => setIsCreateModalOpen(false));
+  const handleUpdateModalClose = useEvent(() =>
+    setUpdatingRestaurantId(undefined),
+  );
 
   return (
     <RestaurantsListWrapper>
@@ -86,6 +90,12 @@ export const RestaurantsList = () => {
         />
       </PaginationContainer>
       <CreateModal open={isCreateModalOpen} onClose={handleCloseCreateModal} />
+      {updatingRestaurantId ? (
+        <UpdateModal
+          id={updatingRestaurantId}
+          onClose={handleUpdateModalClose}
+        />
+      ) : null}
     </RestaurantsListWrapper>
   );
 };

@@ -4,6 +4,7 @@ import { CreateRestaurantPayload } from "../types/payloads/CreateRestaurantPaylo
 import { DeleteRestaurantPayload } from "../types/payloads/DeleteRestaurantPayload.js";
 import { PagePayload } from "../types/payloads/PagePayload.js";
 import { SearchPayload } from "../types/payloads/SearchPayload.js";
+import { UpdateRestaurantPayload } from "../types/payloads/UpdateRestaurantPayload.js";
 
 export enum RestaurantsActions {
   SEARCH = "RESTAURANTS_SEARCH",
@@ -48,9 +49,8 @@ export const deleteRestaurantAction = createAction<DeleteRestaurantPayload>(
 export const createRestaurantActionAsync =
   createAction<CreateRestaurantPayload>(RestaurantsActionsAsync.CREATE);
 
-export const updateRestaurantActionAsync = createAction<SearchPayload>(
-  RestaurantsActionsAsync.UPDATE,
-);
+export const updateRestaurantActionAsync =
+  createAction<UpdateRestaurantPayload>(RestaurantsActionsAsync.UPDATE);
 
 export const deleteRestaurantActionAsync =
   createAction<DeleteRestaurantPayload>(RestaurantsActionsAsync.DELETE);
