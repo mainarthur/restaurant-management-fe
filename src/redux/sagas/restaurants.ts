@@ -2,6 +2,7 @@ import { ApolloQueryResult } from "@apollo/client";
 import { delay, put, takeEvery } from "redux-saga/effects";
 
 import { client } from "../../api/client.js";
+import { createQuery } from "../../api/queries/create.js";
 import { deleteQuery } from "../../api/queries/delete.js";
 import { searchQuery } from "../../api/queries/search.js";
 import { paginationUpdateAction } from "../actions/pagination.js";
@@ -43,9 +44,23 @@ function* deleteRequested(action: AsyncAction<{}, DeleteRestaurantPayload>) {
   next();
 }
 
+function* createRequested(action: AsyncAction<{}, DeleteRestaurantPayload>) {
+  const { payload, next } = action;
+
+  if (!payload) return next(new Error("Payload is required for create action"));
+
+  yield client.mutate({
+    mutation: createQuery,
+    variables: payload,
+  });
+
+  next();
+}
+
 function* watchRestaurants() {
   yield takeEvery(RestaurantsActionsAsync.SEARCH, searchRequested);
   yield takeEvery(RestaurantsActionsAsync.DELETE, deleteRequested);
+  yield takeEvery(RestaurantsActionsAsync.CREATE, createRequested);
 }
 
 export default watchRestaurants;

@@ -1,13 +1,6 @@
 import { PlusOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import {
-  Button,
-  Card,
-  Pagination,
-  PaginationProps,
-  Space,
-  Typography,
-} from "antd";
+import { Button, Pagination, PaginationProps, Space } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,7 +10,9 @@ import {
   searchActionAsync,
 } from "../../redux/actions/restaurants.js";
 import { createAsyncAction } from "../../redux/helpers.js";
-import { RootState } from "../../redux/reducers";
+import { paginationSelector } from "../../redux/selectors/pagination.js";
+import { restaurantsSelector } from "../../redux/selectors/restaurants.js";
+import { CreateModal } from "../CreateModal/CreateModal.js";
 import { Restaurant } from "../Restaurant/Restaurant.js";
 
 export const RestaurantsList = () => {
@@ -25,10 +20,12 @@ export const RestaurantsList = () => {
     number | undefined
   >();
 
-  const restaurants = useSelector((state: RootState) => state.restaurants);
-  const pagination = useSelector((state: RootState) => state.pagination);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const restaurants = useSelector(restaurantsSelector);
+  const pagination = useSelector(paginationSelector);
   const dispatch = useDispatch();
-  console.log({ pagination });
+
   const handleDeleteRestaurant = useEvent(async (id: number) => {
     await createAsyncAction(dispatch, deleteRestaurantActionAsync({ id }));
     await createAsyncAction(
@@ -40,6 +37,7 @@ export const RestaurantsList = () => {
       }),
     );
   });
+
   const handleUpdateRestaurant = useEvent((id: number) => {
     setUpdatingRestaurantId(id);
   });
@@ -57,6 +55,9 @@ export const RestaurantsList = () => {
     },
   );
 
+  const handleOpenCreateModal = useEvent(() => setIsCreateModalOpen(true));
+  const handleCloseCreateModal = useEvent(() => setIsCreateModalOpen(false));
+
   return (
     <RestaurantsListWrapper>
       {restaurants.map(({ id, name, address, email, phone }) => (
@@ -72,7 +73,7 @@ export const RestaurantsList = () => {
         />
       ))}
       <PaginationContainer>
-        <AddButton type="primary">
+        <AddButton type="primary" onClick={handleOpenCreateModal}>
           <PlusOutlined />
         </AddButton>
         <PaginationWrapper
@@ -84,6 +85,7 @@ export const RestaurantsList = () => {
           pageSize={pagination.pageSize}
         />
       </PaginationContainer>
+      <CreateModal open={isCreateModalOpen} onClose={handleCloseCreateModal} />
     </RestaurantsListWrapper>
   );
 };
