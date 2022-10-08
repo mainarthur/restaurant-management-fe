@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import { Button, Card, Input, Pagination, Space, Typography } from "antd";
+import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Space>
+        <Input />
+        <Button type="primary">
+          <SearchOutlined />
+        </Button>
+      </Space>
+      <Space>
+        <Card>
+          <Typography>McDonalds</Typography>
+          <Typography>
+            5 Hermitage Rd, St John's, Woking GU21 8TE, UK
+          </Typography>
+          <Typography>hi@mcdonalds.com</Typography>
+          <Typography>(494) 927-2152</Typography>
+        </Card>
+      </Space>
+      <Space>
+        <Button type="primary">
+          <PlusOutlined />
+        </Button>
+        <Pagination />
+      </Space>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
