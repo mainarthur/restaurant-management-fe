@@ -25,7 +25,7 @@ export const UpdateModal = ({ onClose, id }: Props) => {
   const restaurant = restaurants.find(
     (restaurantToCheck) => restaurantToCheck.id === id,
   );
-  console.log({ id, restaurant, restaurants });
+
   const [name, setName] = useState(restaurant?.name ?? "");
   const [address, setAddress] = useState(restaurant?.address ?? "");
   const [phone, setPhone] = useState(restaurant?.phone ?? "");

@@ -11,7 +11,6 @@ export default function restaurantsReducer(
   action: Action<any>,
 ): RestaurantsState {
   if (searchAction.match(action) && action.payload) {
-    console.log(action);
     return action.payload.result;
   }
 

@@ -1,6 +1,4 @@
-import { PlusOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import { Button, Pagination, PaginationProps, Space } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,7 +10,7 @@ import {
 import { createAsyncAction } from "../../redux/helpers.js";
 import { paginationSelector } from "../../redux/selectors/pagination.js";
 import { restaurantsSelector } from "../../redux/selectors/restaurants.js";
-import { CreateModal } from "../CreateModal/CreateModal.js";
+import { PaginationContainer } from "../PaginationContainer/PaginationContainer.js";
 import { Restaurant } from "../Restaurant/Restaurant.js";
 import { UpdateModal } from "../UpdateModal/UpdateModal.js";
 
@@ -20,8 +18,6 @@ export const RestaurantsList = () => {
   const [updatingRestaurantId, setUpdatingRestaurantId] = useState<
     number | undefined
   >();
-
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const restaurants = useSelector(restaurantsSelector);
   const pagination = useSelector(paginationSelector);
@@ -43,21 +39,6 @@ export const RestaurantsList = () => {
     setUpdatingRestaurantId(id);
   });
 
-  const handleChangePageNumber: PaginationProps["onChange"] = useEvent(
-    async (page) => {
-      await createAsyncAction(
-        dispatch,
-        searchActionAsync({
-          page,
-          searchTerm: pagination.searchTerm,
-          pageSize: pagination.pageSize,
-        }),
-      );
-    },
-  );
-
-  const handleOpenCreateModal = useEvent(() => setIsCreateModalOpen(true));
-  const handleCloseCreateModal = useEvent(() => setIsCreateModalOpen(false));
   const handleUpdateModalClose = useEvent(() =>
     setUpdatingRestaurantId(undefined),
   );
@@ -76,20 +57,7 @@ export const RestaurantsList = () => {
           onUpdate={handleUpdateRestaurant}
         />
       ))}
-      <PaginationContainer>
-        <AddButton type="primary" onClick={handleOpenCreateModal}>
-          <PlusOutlined />
-        </AddButton>
-        <PaginationWrapper
-          showQuickJumper={false}
-          current={pagination.page}
-          onChange={handleChangePageNumber}
-          total={pagination.total ?? 0}
-          showSizeChanger={false}
-          pageSize={pagination.pageSize}
-        />
-      </PaginationContainer>
-      <CreateModal open={isCreateModalOpen} onClose={handleCloseCreateModal} />
+      <PaginationContainer />
       {updatingRestaurantId ? (
         <UpdateModal
           id={updatingRestaurantId}
@@ -99,32 +67,6 @@ export const RestaurantsList = () => {
     </RestaurantsListWrapper>
   );
 };
-
-const PaginationContainer = styled(Space)`
-  display: flex;
-  justify-content: space-between;
-  padding-right: 95pt;
-  margin-top: 28pt;
-`;
-
-const AddButton = styled(Button)`
-  width: 88pt;
-  height: 44pt;
-  font-size: 16pt;
-`;
-
-const PaginationWrapper = styled(Pagination)`
-  li {
-    width: 44pt;
-    height: 44pt;
-  }
-  li a {
-    padding-top: 10pt;
-  }
-  a {
-    font-size: 16pt;
-  }
-`;
 
 const RestaurantsListWrapper = styled.div`
   margin-top: 42pt;

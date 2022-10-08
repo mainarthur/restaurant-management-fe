@@ -1,6 +1,6 @@
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import vitePluginImp from "vite-plugin-imp";
-import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [
