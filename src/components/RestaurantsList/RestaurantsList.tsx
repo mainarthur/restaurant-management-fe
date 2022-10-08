@@ -1,6 +1,13 @@
 import { PlusOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import { Button, Card, Pagination, Space, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Pagination,
+  PaginationProps,
+  Space,
+  Typography,
+} from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -37,6 +44,19 @@ export const RestaurantsList = () => {
     setUpdatingRestaurantId(id);
   });
 
+  const handleChangePageNumber: PaginationProps["onChange"] = useEvent(
+    async (page) => {
+      await createAsyncAction(
+        dispatch,
+        searchActionAsync({
+          page,
+          searchTerm: pagination.searchTerm,
+          pageSize: pagination.pageSize,
+        }),
+      );
+    },
+  );
+
   return (
     <RestaurantsListWrapper>
       {restaurants.map(({ id, name, address, email, phone }) => (
@@ -51,15 +71,48 @@ export const RestaurantsList = () => {
           onUpdate={handleUpdateRestaurant}
         />
       ))}
-      <Space>
-        <Button type="primary">
+      <PaginationContainer>
+        <AddButton type="primary">
           <PlusOutlined />
-        </Button>
-        <Pagination />
-      </Space>
+        </AddButton>
+        <PaginationWrapper
+          showQuickJumper={false}
+          current={pagination.page}
+          onChange={handleChangePageNumber}
+          total={pagination.total ?? 0}
+          showSizeChanger={false}
+          pageSize={pagination.pageSize}
+        />
+      </PaginationContainer>
     </RestaurantsListWrapper>
   );
 };
+
+const PaginationContainer = styled(Space)`
+  display: flex;
+  justify-content: space-between;
+  padding-right: 95pt;
+  margin-top: 28pt;
+`;
+
+const AddButton = styled(Button)`
+  width: 88pt;
+  height: 44pt;
+  font-size: 16pt;
+`;
+
+const PaginationWrapper = styled(Pagination)`
+  li {
+    width: 44pt;
+    height: 44pt;
+  }
+  li a {
+    padding-top: 10pt;
+  }
+  a {
+    font-size: 16pt;
+  }
+`;
 
 const RestaurantsListWrapper = styled.div`
   margin-top: 42pt;
