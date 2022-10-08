@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button, Card, Space, Typography } from "antd";
+import { Button, Typography } from "antd";
 
 import { useEvent } from "../../hooks/useEvent.js";
 import { Restaurant as RestaurantType } from "../../redux/types/Restaurant.js";

@@ -8,10 +8,6 @@ import { UpdateRestaurantPayload } from "../types/payloads/UpdateRestaurantPaylo
 
 export enum RestaurantsActions {
   SEARCH = "RESTAURANTS_SEARCH",
-  LIST_PAGE = "RESTAURANTS_LIST",
-  CREATE = "RESTAURANTS_CREATE",
-  UPDATE = "RESTAURANTS_UPDATE",
-  DELETE = "RESTAURANTS_DELETE",
 }
 
 export enum RestaurantsActionsAsync {
@@ -28,22 +24,6 @@ export const searchActionAsync = createAction<SearchPayload & PagePayload>(
 
 export const searchAction = createAction<PaginatedRestaurants>(
   RestaurantsActions.SEARCH,
-);
-
-// export const listPageAction = createAction<PagePayload>(
-//   RestaurantsActions.LIST_PAGE,
-// );
-
-export const createRestaurantAction = createAction<CreateRestaurantPayload>(
-  RestaurantsActions.CREATE,
-);
-
-export const updateRestaurantAction = createAction<SearchPayload>(
-  RestaurantsActions.UPDATE,
-);
-
-export const deleteRestaurantAction = createAction<DeleteRestaurantPayload>(
-  RestaurantsActions.DELETE,
 );
 
 export const createRestaurantActionAsync =

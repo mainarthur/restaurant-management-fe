@@ -1,12 +1,11 @@
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import { Button, Card, Input, Modal, Space, Typography } from "antd";
+import { Button, Input, Modal, Typography } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useEvent } from "../../hooks/useEvent.js";
 import {
-  createRestaurantActionAsync,
   searchActionAsync,
   updateRestaurantActionAsync,
 } from "../../redux/actions/restaurants.js";

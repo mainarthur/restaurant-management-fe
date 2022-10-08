@@ -1,6 +1,6 @@
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import { Button, Card, Input, Modal, Space, Typography } from "antd";
+import { Button, Input, Modal, Typography } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -39,17 +39,18 @@ export const CreateModal = ({ open, onClose }: Props) => {
   const handleEmailChange: React.ChangeEventHandler<HTMLInputElement> =
     useEvent((event) => setEmail(event.target.value));
 
-  const handleCreate = useEvent(async (e) => {
+  const handleCreate = useEvent(async (event) => {
     await createAsyncAction(
       dispatch,
       createRestaurantActionAsync({ name, email, phone, address }),
     );
     await createAsyncAction(dispatch, searchActionAsync({ ...pagination }));
-    onClose(e);
+
+    onClose(event);
   });
 
-  const handleCancel = useEvent((e) => {
-    onClose(e);
+  const handleCancel = useEvent((event) => {
+    onClose(event);
   });
 
   return (

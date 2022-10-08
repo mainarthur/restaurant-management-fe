@@ -1,6 +1,5 @@
 import { DEFAULT_PAGE_SIZE } from "../../constants.js";
 import { paginationUpdateAction } from "../actions/pagination.js";
-import { searchAction } from "../actions/restaurants.js";
 import Action from "../types/Action";
 
 export type PaginationState = {

@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { delay, put, takeEvery } from "redux-saga/effects";
+import { put, takeEvery } from "redux-saga/effects";
 
 import { client } from "../../api/client.js";
 import { createQuery } from "../../api/queries/create.js";
