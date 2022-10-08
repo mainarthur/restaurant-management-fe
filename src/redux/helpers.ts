@@ -1,22 +1,26 @@
-import { Dispatch } from 'redux'
-import Action from './types/Action'
-import ActionGenerator from './types/ActionGenerator'
+import { Dispatch } from "redux";
+
+import Action from "./types/Action";
+import ActionGenerator from "./types/ActionGenerator";
 
 export function createAction<PayloadType = {}>(
   name: string,
   prepare = (payload: PayloadType) => payload,
 ) {
-  const action: ActionGenerator<PayloadType> = (payload?: PayloadType): Action<PayloadType> => ({
+  const action: ActionGenerator<PayloadType> = (
+    payload?: PayloadType,
+  ): Action<PayloadType> => ({
     type: name,
     payload: prepare(payload),
-  })
+  });
 
-  action.match = (a: Action): a is Action<PayloadType> => a.type === action.type
+  action.match = (a: Action): a is Action<PayloadType> =>
+    a.type === action.type;
 
-  action.type = name
-  action.toString = () => name
+  action.type = name;
+  action.toString = () => name;
 
-  return action
+  return action;
 }
 
 export function createAsyncAction<ResultType, PayloadType = {}>(
@@ -28,11 +32,11 @@ export function createAsyncAction<ResultType, PayloadType = {}>(
       ...action,
       next: (err, data: ResultType) => {
         if (err) {
-          rej(err)
+          rej(err);
         } else {
-          res(data)
+          res(data);
         }
       },
-    })
-  })
+    });
+  });
 }

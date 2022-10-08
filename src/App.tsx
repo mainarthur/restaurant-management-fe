@@ -1,9 +1,15 @@
-import { Button, Card, Pagination, Space, Typography } from "antd";
-import styled from "@emotion/styled";
 import { PlusOutlined } from "@ant-design/icons";
+import styled from "@emotion/styled";
+import { Button, Card, Pagination, Space, Typography } from "antd";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import { SearchBar } from "./components/SearchBar/SearchBar.js";
 
 const App = () => {
+  // const dispatch = useDi;
+  useEffect(() => {}, []);
+
   return (
     <AppContainer>
       <SearchBar />

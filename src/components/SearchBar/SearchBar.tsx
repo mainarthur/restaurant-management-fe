@@ -1,14 +1,29 @@
+import { SearchOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import { useState } from "react";
 import { Button, Input, Space } from "antd";
-import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { useEvent } from "../../hooks/useEvent";
+import { searchAction } from "../../redux/actions/search.js";
 
 export const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
+
+  const handleInputUpdate: React.ChangeEventHandler<HTMLInputElement> =
+    useEvent((event) => {
+      setSearchTerm(event.target.value);
+    });
+
+  const handleSearch = useEvent(() => {
+    dispatch(searchAction({ searchTerm }));
+  });
+
   return (
     <Space>
-      <SearchInput placeholder="Search" />
-      <SearchButton type="primary">
+      <SearchInput onChange={handleInputUpdate} placeholder="Search" />
+      <SearchButton onClick={handleSearch} type="primary">
         <SearchOutlined />
       </SearchButton>
     </Space>
