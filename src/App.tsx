@@ -1,19 +1,12 @@
-import { useState } from "react";
-import { Button, Card, Input, Pagination, Space, Typography } from "antd";
-import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
-import "./App.css";
+import { Button, Card, Pagination, Space, Typography } from "antd";
+import styled from "@emotion/styled";
+import { PlusOutlined } from "@ant-design/icons";
+import { SearchBar } from "./components/SearchBar/SearchBar.js";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
-    <div className="App">
-      <Space>
-        <Input />
-        <Button type="primary">
-          <SearchOutlined />
-        </Button>
-      </Space>
+    <AppContainer>
+      <SearchBar />
       <Space>
         <Card>
           <Typography>McDonalds</Typography>
@@ -30,8 +23,16 @@ function App() {
         </Button>
         <Pagination />
       </Space>
-    </div>
+    </AppContainer>
   );
-}
+};
+
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 15pt;
+  margin-left: 218pt;
+  margin-right: 218pt;
+`;
 
 export default App;
